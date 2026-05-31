@@ -347,7 +347,12 @@
   const pad = 45;
   const z = Math.min(2.0, Math.max(1.0, (cy.width() - pad * 2) / (bb.w || 1)));
   cy.zoom(z);
-  cy.pan({ x: pad - bb.x1 * z, y: pad - bb.y1 * z });
+  // Keep the root column at the left edge, but anchor vertically on Cascade (the
+  // real starting trick) rather than whichever siteswap root dagre stacked on top.
+  const cascade = cy.getElementById("Cascade");
+  const anchorY = cascade.nonempty() ? cascade.position("y") : bb.y1;
+  cy.pan({ x: pad - bb.x1 * z,
+           y: (cascade.nonempty() ? cy.height() / 2 : pad) - anchorY * z });
 })();
 </script>
 </body>
