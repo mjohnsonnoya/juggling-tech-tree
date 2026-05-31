@@ -1,4 +1,4 @@
-# Juggling Tech Tree
+# Juggling Tech Tree (Claude Generated)
 
 An interactive "video-game tech tree" of juggling tricks, built from the
 prerequisite links on [libraryofjuggling.com](https://libraryofjuggling.com).
