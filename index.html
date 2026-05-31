@@ -98,9 +98,6 @@
       </label>
     </div>
 
-    <div class="sect">
-      <button class="act" id="reset">Reset view</button>
-    </div>
 
     <div class="sect" id="info" style="flex:1;">
       <h2>Selected trick</h2>
@@ -334,10 +331,6 @@
     }
   };
 
-  document.getElementById("reset").onclick = () => {
-    clearHL(); search.value = "";
-    cy.animate({ fit: { padding: 30 } }, { duration: 250 });
-  };
 
   // Initial view: zoom in on the top-left of the tree. We size the zoom so the
   // first ~3 tiers fill the viewport WIDTH and let the height overflow, so you
