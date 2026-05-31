@@ -338,11 +338,16 @@
     cy.animate({ fit: { padding: 30 } }, { duration: 250 });
   };
 
-  // Initial view: zoom into the first few tiers (roots + next 2 levels, i.e. the
-  // left edge of the tree) rather than fitting the whole graph. Pan/scroll right
-  // to follow chains toward the harder leaf tricks.
+  // Initial view: zoom in on the top-left of the tree. We size the zoom so the
+  // first ~3 tiers fill the viewport WIDTH and let the height overflow, so you
+  // start scrolled into the roots and zoomed in (not staring at the whole tree).
+  // Pan/scroll right to follow chains toward the harder leaf tricks.
   const intro = cy.nodes().filter(n => n.data("depth") <= 2);
-  cy.fit(intro.length ? intro : cy.nodes(), 50);
+  const bb = (intro.length ? intro : cy.nodes()).boundingBox();
+  const pad = 45;
+  const z = Math.min(2.0, Math.max(1.0, (cy.width() - pad * 2) / (bb.w || 1)));
+  cy.zoom(z);
+  cy.pan({ x: pad - bb.x1 * z, y: pad - bb.y1 * z });
 })();
 </script>
 </body>
