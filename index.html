@@ -186,7 +186,7 @@
       { selector: "node.root", style: { "background-color": "data(color)",
           "border-color": "#ffd33d" } },
     ],
-    layout: { name: "dagre", rankDir: "TB", nodeSep: 22, rankSep: 70,
+    layout: { name: "dagre", rankDir: "LR", nodeSep: 32, rankSep: 95,
               edgeSep: 10, ranker: "longest-path" },
   });
 
@@ -338,7 +338,11 @@
     cy.animate({ fit: { padding: 30 } }, { duration: 250 });
   };
 
-  cy.fit(undefined, 30);
+  // Initial view: zoom into the first few tiers (roots + next 2 levels, i.e. the
+  // left edge of the tree) rather than fitting the whole graph. Pan/scroll right
+  // to follow chains toward the harder leaf tricks.
+  const intro = cy.nodes().filter(n => n.data("depth") <= 2);
+  cy.fit(intro.length ? intro : cy.nodes(), 50);
 })();
 </script>
 </body>
