@@ -33,7 +33,7 @@
   .chip.off { opacity: .35; }
   .chip .shape { display:inline-block; width:13px; height:13px;
     margin-right:6px; vertical-align:-2px; }
-  .shape.s3 { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+  .shape.s3 { border-radius: 50%; }                      /* circle */
   .shape.s4 { border-radius: 3px; }                      /* rounded square */
   .shape.s5 { clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
   .shape.s6 { clip-path: polygon(25% 0%, 75% 0%, 100% 50%,
@@ -134,8 +134,8 @@
     const c = a.map((v, i) => Math.round(v + (b[i] - v) * lt));
     return `rgb(${c[0]},${c[1]},${c[2]})`;
   }
-  // sides = number of balls, with rounded corners
-  const ballShape = { 3: "round-triangle", 4: "round-rectangle",
+  // 3-ball stays a circle (most common); 4/5/6 use rounded N-gons (sides = balls)
+  const ballShape = { 3: "ellipse", 4: "round-rectangle",
                       5: "round-pentagon", 6: "round-hexagon" };
   const ballColor = { 3: "#58a6ff", 4: "#bc8cff", 5: "#3fb950", 6: "#f0883e" };
 
