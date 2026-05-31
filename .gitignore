@@ -1,0 +1,7 @@
+# Cached raw HTML from libraryofjuggling.com — regenerable via `python3 scrape.py`,
+# and not ours to redistribute. The derived graph (graph.json / graphData.js) is kept.
+cache/
+
+# OS / editor cruft
+.DS_Store
+*.swp

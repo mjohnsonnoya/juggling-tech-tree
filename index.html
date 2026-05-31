@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juggling Tech Tree</title>
+<style>
+  :root {
+    --bg: #0e1116; --panel: #161b22; --panel2: #1c2230;
+    --line: #2a3140; --text: #e6edf3; --muted: #8b97a7; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  #app { display: flex; height: 100vh; overflow: hidden; }
+  #cy { flex: 1; height: 100%; background:
+    radial-gradient(circle at 50% 0%, #131a26 0%, var(--bg) 70%); }
+
+  /* ---- Sidebar ---- */
+  #side { width: 320px; flex: 0 0 320px; background: var(--panel);
+    border-left: 1px solid var(--line); display: flex; flex-direction: column;
+    overflow-y: auto; }
+  #side h1 { font-size: 17px; margin: 0; padding: 16px 16px 4px; }
+  #side .sub { color: var(--muted); font-size: 12px; padding: 0 16px 12px; }
+  .sect { padding: 12px 16px; border-top: 1px solid var(--line); }
+  .sect h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); margin: 0 0 8px; }
+  input[type=search] { width: 100%; padding: 8px 10px; border-radius: 7px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--text); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { cursor: pointer; user-select: none; padding: 4px 9px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--panel2); font-size: 12px; }
+  .chip.off { opacity: .35; }
+  .chip .dot { display:inline-block; width:9px; height:9px; border-radius:50%;
+    margin-right:5px; vertical-align:-1px; }
+  .toggle { display: flex; align-items: center; gap: 8px; color: var(--muted);
+    font-size: 13px; cursor: pointer; }
+  button.act { width: 100%; padding: 8px; border-radius: 7px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--text); }
+  button.act:hover { border-color: var(--accent); }
+
+  /* ---- Info panel ---- */
+  #info .empty { color: var(--muted); font-size: 13px; }
+  #info .name { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  #info .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px;
+    background: var(--panel2); border: 1px solid var(--line); color: var(--muted); }
+  #info a.open { display: inline-block; margin-top: 4px; color: var(--accent);
+    text-decoration: none; font-size: 13px; }
+  #info a.open:hover { text-decoration: underline; }
+  .rel { margin-top: 10px; }
+  .rel .lbl { color: var(--muted); font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; margin-bottom: 4px; }
+  .rel ul { margin: 0; padding-left: 16px; }
+  .rel li { cursor: pointer; }
+  .rel li:hover { color: var(--accent); }
+
+  /* ---- Difficulty legend gradient ---- */
+  .grad { height: 10px; border-radius: 5px; margin: 6px 0 4px;
+    background: linear-gradient(90deg,#3fb950,#d29922,#f85149); }
+  .gradlabels { display: flex; justify-content: space-between;
+    color: var(--muted); font-size: 11px; }
+
+  #hint { position: absolute; left: 14px; bottom: 12px; color: var(--muted);
+    font-size: 12px; background: rgba(13,17,23,.7); padding: 6px 10px;
+    border-radius: 7px; border: 1px solid var(--line); pointer-events: none; }
+  #tooltip { position: absolute; z-index: 5; pointer-events: none; display: none;
+    background: #0b0e13; border: 1px solid var(--line); border-radius: 6px;
+    padding: 6px 9px; font-size: 12px; max-width: 220px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="cy"></div>
+  <div id="tooltip"></div>
+  <div id="hint">Click a trick to trace its prerequisites &amp; unlocks · double-click opens its page · scroll to zoom</div>
+
+  <aside id="side">
+    <h1>🤹 Juggling Tech Tree</h1>
+    <div class="sub" id="counts">loading…</div>
+
+    <div class="sect">
+      <h2>Search</h2>
+      <input type="search" id="search" placeholder="Find a trick… (e.g. Mills Mess)" autocomplete="off">
+    </div>
+
+    <div class="sect">
+      <h2>Ball count</h2>
+      <div class="chips" id="ballChips"></div>
+    </div>
+
+    <div class="sect">
+      <h2>Difficulty (node color)</h2>
+      <div class="grad"></div>
+      <div class="gradlabels"><span>1 easy</span><span>10 hard</span></div>
+      <label class="toggle" style="margin-top:10px;">
+        <input type="checkbox" id="optToggle" checked> show optional prerequisites (dashed)
+      </label>
+    </div>
+
+    <div class="sect">
+      <button class="act" id="reset">Reset view</button>
+    </div>
+
+    <div class="sect" id="info" style="flex:1;">
+      <h2>Selected trick</h2>
+      <div class="empty">Nothing selected. Click a node to see its details, the
+        prerequisites that lead into it, and everything it unlocks.</div>
+    </div>
+  </aside>
+</div>
+
+<script src="graphData.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+<script>
+(function () {
+  if (typeof GRAPH === "undefined") {
+    document.getElementById("counts").textContent =
+      "graphData.js not found — run: python3 scrape.py";
+    return;
+  }
+
+  // ---- difficulty -> color (green→amber→red) ----
+  function diffColor(d) {
+    if (d == null) return "#6e7681";
+    const t = Math.max(0, Math.min(1, (d - 1) / 9));
+    const stops = [[63,185,80],[210,153,34],[248,81,73]]; // green, amber, red
+    const seg = t < 0.5 ? 0 : 1, lt = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5;
+    const a = stops[seg], b = stops[seg + 1];
+    const c = a.map((v, i) => Math.round(v + (b[i] - v) * lt));
+    return `rgb(${c[0]},${c[1]},${c[2]})`;
+  }
+  const ballShape = { 3: "ellipse", 4: "round-rectangle", 5: "diamond", 6: "hexagon" };
+  const ballColor = { 3: "#58a6ff", 4: "#bc8cff", 5: "#3fb950", 6: "#f0883e" };
+
+  const nodeById = {};
+  GRAPH.nodes.forEach(n => nodeById[n.id] = n);
+
+  const elements = [];
+  GRAPH.nodes.forEach(n => elements.push({ data: {
+    id: n.id, name: n.name, difficulty: n.difficulty, balls: n.balls,
+    depth: n.depth, url: n.url, related: n.related || [],
+    color: diffColor(n.difficulty),
+    border: ballColor[n.balls] || "#6e7681",
+    shape: ballShape[n.balls] || "ellipse",
+  }}));
+  let edgeId = 0;
+  GRAPH.edges.forEach(e => {
+    if (nodeById[e.source] && nodeById[e.target])
+      elements.push({ data: {
+        id: "e" + (edgeId++), source: e.source, target: e.target,
+        optional: !!e.optional } });
+  });
+
+  const cy = cytoscape({
+    container: document.getElementById("cy"),
+    elements,
+    wheelSensitivity: 0.25,
+    style: [
+      { selector: "node", style: {
+          "background-color": "data(color)", "shape": "data(shape)",
+          "border-width": 3, "border-color": "data(border)",
+          "label": "data(name)", "color": "#e6edf3", "font-size": 11,
+          "text-valign": "bottom", "text-margin-y": 4, "text-wrap": "wrap",
+          "text-max-width": 110, "width": 26, "height": 26,
+          "text-outline-color": "#0e1116", "text-outline-width": 2,
+          "transition-property": "opacity", "transition-duration": "120ms" } },
+      { selector: "edge", style: {
+          "width": 1.6, "line-color": "#3a4456", "target-arrow-color": "#3a4456",
+          "target-arrow-shape": "triangle", "curve-style": "bezier",
+          "arrow-scale": 0.9, "opacity": 0.65 } },
+      { selector: "edge[?optional]", style: {
+          "line-style": "dashed", "line-color": "#4a3f63",
+          "target-arrow-color": "#4a3f63" } },
+      { selector: ".dim", style: { "opacity": 0.08 } },
+      { selector: "node.hl", style: {
+          "border-width": 4, "border-color": "#ffffff" } },
+      { selector: "edge.up", style: {
+          "line-color": "#f0883e", "target-arrow-color": "#f0883e",
+          "opacity": 1, "width": 2.4, "z-index": 10 } },
+      { selector: "edge.down", style: {
+          "line-color": "#58a6ff", "target-arrow-color": "#58a6ff",
+          "opacity": 1, "width": 2.4, "z-index": 10 } },
+      { selector: "node.root", style: { "background-color": "data(color)",
+          "border-color": "#ffd33d" } },
+    ],
+    layout: { name: "dagre", rankDir: "TB", nodeSep: 22, rankSep: 70,
+              edgeSep: 10, ranker: "longest-path" },
+  });
+
+  // mark roots (no incoming required edges)
+  cy.nodes().forEach(n => {
+    const reqIn = n.incomers("edge").filter(e => !e.data("optional"));
+    if (reqIn.length === 0) n.addClass("root");
+  });
+
+  // ---- counts ----
+  const byBall = {};
+  GRAPH.nodes.forEach(n => byBall[n.balls] = (byBall[n.balls] || 0) + 1);
+  document.getElementById("counts").innerHTML =
+    `${GRAPH.nodes.length} tricks · ${GRAPH.edges.length} prerequisites · ` +
+    `${GRAPH.edges.filter(e => e.optional).length} optional`;
+
+  // ---- selection / highlight ----
+  function clearHL() {
+    cy.elements().removeClass("dim hl up down");
+  }
+  function selectNode(n) {
+    clearHL();
+    const up = n.predecessors();      // all prerequisites (upstream)
+    const down = n.successors();      // everything it unlocks (downstream)
+    const keep = up.union(down).union(n);
+    cy.elements().not(keep).addClass("dim");
+    up.edges().addClass("up");
+    down.edges().addClass("down");
+    n.addClass("hl");
+    showInfo(n);
+  }
+  function showInfo(n) {
+    const d = n.data();
+    const relItems = (d.related || []).map(r =>
+      `<li data-rel="${r.replace(/"/g, "&quot;")}">${r}</li>`).join("");
+    const upCount = n.predecessors("node").length;
+    const downCount = n.successors("node").length;
+    document.getElementById("info").innerHTML = `
+      <h2>Selected trick</h2>
+      <div class="name">${d.name}</div>
+      <div class="meta">
+        <span class="badge">${d.balls}-ball</span>
+        <span class="badge">difficulty ${d.difficulty ?? "?"}/10</span>
+        <span class="badge">tier ${d.depth}</span>
+      </div>
+      <div class="badge" style="background:#1f2a1f;border-color:#2e4a2e;color:#9be39b">
+        ${upCount} prerequisite${upCount === 1 ? "" : "s"} upstream</div>
+      <div class="badge" style="background:#1b2330;border-color:#2c3c55;color:#9bc4ff;margin-left:4px">
+        unlocks ${downCount} downstream</div>
+      <div><a class="open" href="${d.url}" target="_blank" rel="noopener">
+        Open on libraryofjuggling ↗</a></div>
+      ${relItems ? `<div class="rel"><div class="lbl">Related tricks</div>
+        <ul>${relItems}</ul></div>` : ""}`;
+    document.querySelectorAll("#info li[data-rel]").forEach(li =>
+      li.onclick = () => {
+        const match = cy.nodes().filter(x =>
+          x.data("name") === li.getAttribute("data-rel"));
+        if (match.length) { selectNode(match[0]); focusNode(match[0]); }
+      });
+  }
+  function focusNode(n) {
+    cy.animate({ center: { eles: n }, zoom: Math.max(cy.zoom(), 1.1) },
+      { duration: 250 });
+  }
+
+  // single tap = highlight; double tap (within 300ms on same node) = open page
+  let lastTap = 0, lastNode = null;
+  cy.on("tap", "node", e => {
+    const now = Date.now();
+    if (lastNode === e.target && now - lastTap < 300) {
+      window.open(e.target.data("url"), "_blank");
+    } else {
+      selectNode(e.target);
+    }
+    lastTap = now; lastNode = e.target;
+  });
+  cy.on("tap", e => { if (e.target === cy) { clearHL();
+    document.getElementById("info").innerHTML =
+      '<h2>Selected trick</h2><div class="empty">Nothing selected. Click a node ' +
+      'to see its details, the prerequisites that lead into it, and everything ' +
+      'it unlocks.</div>'; } });
+
+  // ---- tooltip ----
+  const tip = document.getElementById("tooltip");
+  cy.on("mouseover", "node", e => {
+    const d = e.target.data();
+    tip.innerHTML = `<b>${d.name}</b><br>${d.balls}-ball · difficulty ` +
+      `${d.difficulty ?? "?"}/10 · tier ${d.depth}`;
+    tip.style.display = "block";
+  });
+  cy.on("mouseout", "node", () => tip.style.display = "none");
+  cy.on("mousemove", e => {
+    tip.style.left = (e.renderedPosition.x + 14) + "px";
+    tip.style.top = (e.renderedPosition.y + 14) + "px";
+  });
+
+  // ---- ball-count filter chips ----
+  const ballChips = document.getElementById("ballChips");
+  const active = { 3: true, 4: true, 5: true, 6: true };
+  [3, 4, 5, 6].forEach(b => {
+    if (!byBall[b]) return;
+    const c = document.createElement("span");
+    c.className = "chip";
+    c.innerHTML = `<span class="dot" style="background:${ballColor[b]}"></span>` +
+      `${b}-ball (${byBall[b]})`;
+    c.onclick = () => {
+      active[b] = !active[b];
+      c.classList.toggle("off", !active[b]);
+      applyFilters();
+    };
+    ballChips.appendChild(c);
+  });
+  function applyFilters() {
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        const show = active[n.data("balls")];
+        n.style("display", show ? "element" : "none");
+      });
+    });
+  }
+
+  // ---- optional-edge toggle ----
+  document.getElementById("optToggle").onchange = e => {
+    cy.edges("[?optional]").style("display", e.target.checked ? "element" : "none");
+  };
+
+  // ---- search ----
+  const search = document.getElementById("search");
+  search.oninput = () => {
+    const q = search.value.trim().toLowerCase();
+    if (!q) { clearHL(); return; }
+    const matches = cy.nodes().filter(n => n.data("name").toLowerCase().includes(q));
+    clearHL();
+    if (matches.length) {
+      cy.nodes().not(matches).addClass("dim");
+      if (matches.length === 1) { selectNode(matches[0]); focusNode(matches[0]); }
+    }
+  };
+  search.onkeydown = ev => {
+    if (ev.key === "Enter") {
+      const q = search.value.trim().toLowerCase();
+      const m = cy.nodes().filter(n => n.data("name").toLowerCase().includes(q));
+      if (m.length) { selectNode(m[0]); focusNode(m[0]); }
+    }
+  };
+
+  document.getElementById("reset").onclick = () => {
+    clearHL(); search.value = "";
+    cy.animate({ fit: { padding: 30 } }, { duration: 250 });
+  };
+
+  cy.fit(undefined, 30);
+})();
+</script>
+</body>
+</html>
