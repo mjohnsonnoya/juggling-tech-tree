@@ -93,6 +93,45 @@ def _clean_text(raw):
     return html.unescape(re.sub(r"<[^>]+>", "", raw)).strip()
 
 
+# Words that show up in a prereq listing but are not themselves prerequisites
+# (separators / qualifiers like "Foo or Bar", "Baz (maybe)", "None").
+_QUALIFIERS = {"none", "or", "and", "maybe", "both", "optional",
+               "both optional", "either", "any"}
+_SMALL_WORDS = {"in", "of", "the", "a", "an", "and", "or", "to"}
+
+
+def _canonical_name(s):
+    """Title-case a fundamental's name so case variants merge (two in one ->
+    Two in One)."""
+    words = s.split()
+    return " ".join(
+        w.lower() if (i > 0 and w.lower() in _SMALL_WORDS) else w.capitalize()
+        for i, w in enumerate(words))
+
+
+def _parse_fundamentals(leftover_html):
+    """Pull plain-text (unlinked) prerequisites out of the prereq segment after
+    its hyperlinks have been blanked out. These are 'fundamentals' -- precursor
+    skills the site lists but gives no page (e.g. 'Two in One'). Returns a list
+    of (canonical_name, optional) tuples."""
+    text = _clean_text(leftover_html)
+    found = []
+    for chunk in re.split(r"\||,|\bor\b|\band\b", text, flags=re.I):
+        optional = bool(re.search(r"optional|maybe", chunk, re.I))
+        token = re.sub(r"\([^)]*\)", "", chunk).strip()   # drop "(optional)" etc.
+        if len(token) < 3 or not re.search(r"[A-Za-z]", token):
+            continue
+        if token.lower() in _QUALIFIERS:
+            continue
+        found.append((_canonical_name(token), optional))
+    return found
+
+
+def fundamental_id(name):
+    """Stable synthetic id for a pageless fundamental skill."""
+    return "fund:" + re.sub(r"[^a-z0-9]", "", name.lower())
+
+
 def _segment(page, label):
     """Return the HTML between `label:</strong>` and the next <br>, <strong>,
     or </li> -- i.e. just the value portion of a metadata line."""
@@ -119,6 +158,7 @@ def parse_trick(page):
 
     prereq_seg = _segment(page, "Prerequisites")
     prereqs = []
+    # 1) Linked prerequisites (the normal case: a trick with its own page).
     for href, text in ANCHOR_RE.findall(prereq_seg):
         # Is this particular link annotated "(optional)" after the anchor?
         after = prereq_seg[prereq_seg.find('href="' + href + '"'):]
@@ -126,7 +166,12 @@ def parse_trick(page):
         tail_m = re.search(re.escape(text) + r"</a>(.{0,30})", after, re.S)
         tail = tail_m.group(1).lower() if tail_m else ""
         optional = "(optional)" in tail or "optional" in tail[:15]
-        prereqs.append({"href": href, "text": _clean_text(text),
+        prereqs.append({"kind": "link", "href": href,
+                        "text": _clean_text(text), "optional": optional})
+    # 2) Unlinked text prerequisites -> "fundamentals" (skills with no page).
+    leftover = ANCHOR_RE.sub(" | ", prereq_seg)          # blank out the links
+    for name, optional in _parse_fundamentals(leftover):
+        prereqs.append({"kind": "fundamental", "name": name,
                         "optional": optional})
 
     related_seg = _segment(page, "Related Tricks")
@@ -193,6 +238,7 @@ def crawl():
     queue = seed_paths()
     print(f"Seed: {len(queue)} tricks from {INDEX_PATH}")
     nodes = {}          # path -> node dict
+    fundamentals = {}   # fund_id -> synthetic node dict (pageless precursors)
     edges = []          # {source, target, optional}
     warnings = []
     queued = set(queue)
@@ -219,6 +265,17 @@ def crawl():
             warnings.append(f"no difficulty parsed: {path}")
 
         for pre in info["prereqs"]:
+            if pre["kind"] == "fundamental":  # pageless precursor skill
+                fid = fundamental_id(pre["name"])
+                if fid == nid:                # don't let a trick require itself
+                    continue
+                fundamentals.setdefault(fid, {
+                    "id": fid, "path": None, "name": pre["name"],
+                    "difficulty": None, "balls": None, "url": None,
+                    "related": [], "fundamental": True})
+                edges.append({"source": fid, "target": nid,
+                              "optional": pre["optional"]})
+                continue
             href = HREF_FIXUPS.get(path, {}).get(pre["href"], pre["href"])
             target = resolve(href, path)
             if target is None:
@@ -233,6 +290,10 @@ def crawl():
             if target not in queued:          # closure: pull in missing prereqs
                 queued.add(target)
                 queue.append(target)
+
+    # Merge synthetic fundamental nodes in alongside the real trick pages.
+    for fid, fnode in fundamentals.items():
+        nodes[fid] = fnode
 
     return nodes, edges, warnings
 
@@ -298,12 +359,14 @@ def main():
     # ----- summary -----
     roots = [n["id"] for n in node_list if n["depth"] == 0]
     max_depth = max((n["depth"] for n in node_list), default=0)
+    n_fundamental = sum(1 for n in node_list if n.get("fundamental"))
     by_balls = {}
     for n in node_list:
         by_balls[n["balls"]] = by_balls.get(n["balls"], 0) + 1
 
     print("\n=== Summary ===")
-    print(f"nodes: {len(node_list)}   edges: {len(edges)}   "
+    print(f"nodes: {len(node_list)} ({n_fundamental} fundamental)   "
+          f"edges: {len(edges)}   "
           f"optional edges: {sum(1 for e in edges if e['optional'])}")
     print(f"by ball count: " +
           ", ".join(f"{k}-ball: {v}" for k, v in sorted(by_balls.items(),

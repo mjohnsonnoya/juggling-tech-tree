@@ -38,6 +38,8 @@
   .shape.s5 { clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
   .shape.s6 { clip-path: polygon(25% 0%, 75% 0%, 100% 50%,
                                  75% 100%, 25% 100%, 0% 50%); }
+  .shape.sfund { width:11px; height:11px; background:#30363d;
+    border:1px dashed #8b97a7; transform: rotate(45deg); }   /* diamond */
   .toggle { display: flex; align-items: center; gap: 8px; color: var(--muted);
     font-size: 13px; cursor: pointer; }
   button.act { width: 100%; padding: 8px; border-radius: 7px; cursor: pointer;
@@ -78,15 +80,24 @@
 <div id="app">
   <div id="cy"></div>
   <div id="tooltip"></div>
-  <div id="hint">Click a trick to trace its prerequisites &amp; unlocks · double-click opens its page · scroll to zoom</div>
+  <div id="hint">Click a trick to reveal what it unlocks &amp; pull its chain together · click again to collapse · double-click opens its page · click empty space to reset</div>
 
   <aside id="side">
-    <h1>🤹 Juggling Tech Tree</h1>
+    <h1>Juggling Tech Tree</h1>
     <div class="sub" id="counts">loading…</div>
 
     <div class="sect">
       <h2>Search</h2>
       <input type="search" id="search" placeholder="Find a trick… (e.g. Mills Mess)" autocomplete="off">
+    </div>
+
+    <div class="sect">
+      <h2>View</h2>
+      <label class="toggle">
+        <input type="checkbox" id="showAllToggle"> show all nodes (full tree)
+      </label>
+      <div class="sub" style="padding:6px 0 0;">Collapsed: only starting tricks
+        show; click one to reveal what it unlocks.</div>
     </div>
 
     <div class="sect">
@@ -146,6 +157,7 @@
   GRAPH.nodes.forEach(n => elements.push({ data: {
     id: n.id, name: n.name, difficulty: n.difficulty, balls: n.balls,
     depth: n.depth, url: n.url, related: n.related || [],
+    fundamental: !!n.fundamental,
     color: diffColor(n.difficulty),
     border: ballColor[n.balls] || "#6e7681",
     shape: ballShape[n.balls] || "ellipse",
@@ -178,6 +190,11 @@
       { selector: "edge[?optional]", style: {
           "line-style": "dashed", "line-color": "#4a3f63",
           "target-arrow-color": "#4a3f63" } },
+      { selector: "node[?fundamental]", style: {
+          "shape": "diamond", "background-color": "#30363d",
+          "border-color": "#8b97a7", "border-style": "dashed",
+          "border-width": 2, "width": 30, "height": 30,
+          "color": "#c9d4e0", "font-style": "italic" } },
       { selector: ".dim", style: { "opacity": 0.08 } },
       { selector: "node.hl", style: {
           "border-width": 4, "border-color": "#ffffff" } },
@@ -194,17 +211,103 @@
               edgeSep: 10, ranker: "longest-path" },
   });
 
-  // mark roots (no incoming required edges)
+  // mark structural roots (no prerequisites at all — required OR optional).
+  // These are the true fundamentals (Cascade, Two in One) and get a gold ring.
   cy.nodes().forEach(n => {
-    const reqIn = n.incomers("edge").filter(e => !e.data("optional"));
-    if (reqIn.length === 0) n.addClass("root");
+    if (n.incomers("edge").length === 0) n.addClass("root");
   });
+
+  // ---- collapse / focus state ----
+  let collapsed = true;        // default: progressive-disclosure view
+  let showOptional = true;     // mirrors the optional-edge toggle
+  let focusId = null;          // show-all mode: id of the focused node
+  const expanded = new Set();  // collapsed mode: nodes whose children are shown
+
+  // Fundamentals have their own filter chip (a precursor like "Two in One"
+  // feeds tricks of several ball counts, so it isn't tied to one).
+  const nodeActive = n => n.data("fundamental")
+                          ? active.fund : active[n.data("balls")];
+  // An edge "counts" right now if it's shown (optional toggle) and its source
+  // is itself on (ball filter). Used for both traversal and orphan detection.
+  const edgeCounts = e => (showOptional || !e.data("optional"))
+                          && nodeActive(e.source());
+  // A node seeds the collapsed view when nothing currently leads into it —
+  // either a true root, or one orphaned by the optional/ball filters.
+  const isSeedRoot = n => nodeActive(n)
+                          && n.incomers("edge").filter(edgeCounts).length === 0;
+
+  // In collapsed mode, walk out from the seed roots through expanded nodes only.
+  function collapsedVisible() {
+    const vis = new Set(), queue = [];
+    cy.nodes().forEach(n => {
+      if (isSeedRoot(n)) { vis.add(n.id()); queue.push(n); }
+    });
+    while (queue.length) {
+      const n = queue.shift();
+      if (!expanded.has(n.id())) continue;
+      n.outgoers("edge").forEach(e => {
+        if (!edgeCounts(e)) return;
+        const t = e.target();
+        if (!nodeActive(t) || vis.has(t.id())) return;
+        vis.add(t.id()); queue.push(t);
+      });
+    }
+    return vis;
+  }
+  // Decide which nodes are on screen, honoring ball filter + mode.
+  function applyVisibility() {
+    let visSet = null;                       // null => every active node
+    if (focusId) {
+      const n = cy.getElementById(focusId);
+      const chain = n.predecessors().union(n.successors()).union(n).nodes();
+      visSet = new Set(chain.filter(nodeActive).map(x => x.id()));
+    } else if (collapsed) {
+      visSet = collapsedVisible();
+    }
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        const show = visSet ? visSet.has(n.id()) : nodeActive(n);
+        n.style("display", show ? "element" : "none");
+      });
+    });
+  }
+  // Re-run dagre on just the visible subgraph and animate it into place.
+  function relayout(center) {
+    const vis = cy.elements(":visible");
+    if (vis.length === 0) return;
+    const l = vis.layout({ name: "dagre", rankDir: "LR", nodeSep: 32,
+      rankSep: 95, edgeSep: 10, ranker: "longest-path",
+      animate: true, animationDuration: 450, fit: false });
+    l.one("layoutstop", () => {
+      if (center && center.nonempty())
+        cy.animate({ center: { eles: center },
+          zoom: Math.min(1.4, Math.max(cy.zoom(), 0.9)) }, { duration: 300 });
+      else
+        cy.animate({ fit: { eles: cy.elements(":visible"), padding: 50 } },
+          { duration: 300 });
+    });
+    l.run();
+  }
+  // Reveal a hidden node by expanding every ancestor on the way to it.
+  function revealPath(n) {
+    n.predecessors("node").forEach(a => expanded.add(a.id()));
+    expanded.add(n.id());
+  }
+  // Navigate to a node from search / related links (works in either mode).
+  function goToNode(n) {
+    if (collapsed) revealPath(n); else focusId = n.id();
+    applyVisibility();
+    selectNode(n);
+    relayout(n);
+  }
 
   // ---- counts ----
   const byBall = {};
   GRAPH.nodes.forEach(n => byBall[n.balls] = (byBall[n.balls] || 0) + 1);
+  const nFund = GRAPH.nodes.filter(n => n.fundamental).length;
   document.getElementById("counts").innerHTML =
-    `${GRAPH.nodes.length} tricks · ${GRAPH.edges.length} prerequisites · ` +
+    `${GRAPH.nodes.length - nFund} tricks · ${nFund} fundamental · ` +
+    `${GRAPH.edges.length} prerequisites · ` +
     `${GRAPH.edges.filter(e => e.optional).length} optional`;
 
   // ---- selection / highlight ----
@@ -216,7 +319,7 @@
     const up = n.predecessors();      // all prerequisites (upstream)
     const down = n.successors();      // everything it unlocks (downstream)
     const keep = up.union(down).union(n);
-    cy.elements().not(keep).addClass("dim");
+    if (!collapsed) cy.elements(":visible").not(keep).addClass("dim");
     up.edges().addClass("up");
     down.edges().addClass("down");
     n.addClass("hl");
@@ -228,50 +331,68 @@
       `<li data-rel="${r.replace(/"/g, "&quot;")}">${r}</li>`).join("");
     const upCount = n.predecessors("node").length;
     const downCount = n.successors("node").length;
+    const meta = d.fundamental
+      ? `<span class="badge" style="border-color:#8b97a7;color:#c9d4e0">fundamental</span>`
+      : `<span class="badge">${d.balls}-ball</span>
+         <span class="badge">difficulty ${d.difficulty ?? "?"}/10</span>
+         <span class="badge">tier ${d.depth}</span>`;
+    const link = d.fundamental
+      ? `<div class="empty" style="margin-top:8px">library of juggling lists it as a prerequisite but gives it no page of its own.</div>`
+      : `<div><a class="open" href="${d.url}" target="_blank" rel="noopener">
+           Open on libraryofjuggling ↗</a></div>`;
     document.getElementById("info").innerHTML = `
       <h2>Selected trick</h2>
       <div class="name">${d.name}</div>
-      <div class="meta">
-        <span class="badge">${d.balls}-ball</span>
-        <span class="badge">difficulty ${d.difficulty ?? "?"}/10</span>
-        <span class="badge">tier ${d.depth}</span>
-      </div>
+      <div class="meta">${meta}</div>
       <div class="badge" style="background:#1f2a1f;border-color:#2e4a2e;color:#9be39b">
         ${upCount} prerequisite${upCount === 1 ? "" : "s"} upstream</div>
       <div class="badge" style="background:#1b2330;border-color:#2c3c55;color:#9bc4ff;margin-left:4px">
         unlocks ${downCount} downstream</div>
-      <div><a class="open" href="${d.url}" target="_blank" rel="noopener">
-        Open on libraryofjuggling ↗</a></div>
+      ${link}
       ${relItems ? `<div class="rel"><div class="lbl">Related tricks</div>
         <ul>${relItems}</ul></div>` : ""}`;
     document.querySelectorAll("#info li[data-rel]").forEach(li =>
       li.onclick = () => {
         const match = cy.nodes().filter(x =>
           x.data("name") === li.getAttribute("data-rel"));
-        if (match.length) { selectNode(match[0]); focusNode(match[0]); }
+        if (match.length) goToNode(match[0]);
       });
   }
-  function focusNode(n) {
-    cy.animate({ center: { eles: n }, zoom: Math.max(cy.zoom(), 1.1) },
-      { duration: 250 });
-  }
-
-  // single tap = highlight; double tap (within 300ms on same node) = open page
+  // single tap = expand/focus + select; double tap (same node, <300ms) = open page
   let lastTap = 0, lastNode = null;
   cy.on("tap", "node", e => {
-    const now = Date.now();
-    if (lastNode === e.target && now - lastTap < 300) {
-      window.open(e.target.data("url"), "_blank");
-    } else {
-      selectNode(e.target);
+    const n = e.target, now = Date.now();
+    if (lastNode === n && now - lastTap < 300) {
+      if (n.data("url")) window.open(n.data("url"), "_blank");  // no page = no-op
+      lastTap = now; lastNode = n; return;
     }
-    lastTap = now; lastNode = e.target;
+    lastTap = now; lastNode = n;
+    if (collapsed) {
+      const id = n.id();
+      if (expanded.has(id)) {                 // collapse this node + its descendants
+        expanded.delete(id);
+        n.successors("node").forEach(d => expanded.delete(d.id()));
+      } else {                                // reveal its direct children
+        expanded.add(id);
+      }
+    } else {
+      focusId = n.id();                       // show-all mode: focus its chain
+    }
+    applyVisibility();
+    selectNode(n);
+    relayout(n);
   });
-  cy.on("tap", e => { if (e.target === cy) { clearHL();
+  cy.on("tap", e => {
+    if (e.target !== cy) return;
+    clearHL();
+    if (collapsed) expanded.clear(); else focusId = null;
+    applyVisibility();
+    relayout();
     document.getElementById("info").innerHTML =
       '<h2>Selected trick</h2><div class="empty">Nothing selected. Click a node ' +
       'to see its details, the prerequisites that lead into it, and everything ' +
-      'it unlocks.</div>'; } });
+      'it unlocks.</div>';
+  });
 
   // ---- tooltip ----
   const tip = document.getElementById("tooltip");
@@ -289,7 +410,8 @@
 
   // ---- ball-count filter chips ----
   const ballChips = document.getElementById("ballChips");
-  const active = { 3: true, 4: false, 5: false, 6: false }; // 3-ball only by default
+  // 3-ball + fundamentals on by default; higher ball counts off
+  const active = { 3: true, 4: false, 5: false, 6: false, fund: true };
   [3, 4, 5, 6].forEach(b => {
     if (!byBall[b]) return;
     const c = document.createElement("span");
@@ -303,57 +425,55 @@
     };
     ballChips.appendChild(c);
   });
-  applyFilters(); // apply the 3-ball-only default on load
-  function applyFilters() {
-    cy.batch(() => {
-      cy.nodes().forEach(n => {
-        const show = active[n.data("balls")];
-        n.style("display", show ? "element" : "none");
-      });
-    });
+  if (nFund) {                                  // dedicated chip for fundamentals
+    const c = document.createElement("span");
+    c.className = "chip" + (active.fund ? "" : " off");
+    c.innerHTML = `<span class="shape sfund"></span>fundamentals (${nFund})`;
+    c.onclick = () => {
+      active.fund = !active.fund;
+      c.classList.toggle("off", !active.fund);
+      applyFilters();
+    };
+    ballChips.appendChild(c);
   }
+  function applyFilters() { applyVisibility(); relayout(); }
 
   // ---- optional-edge toggle ----
   document.getElementById("optToggle").onchange = e => {
-    cy.edges("[?optional]").style("display", e.target.checked ? "element" : "none");
+    showOptional = e.target.checked;
+    cy.edges("[?optional]").style("display", showOptional ? "element" : "none");
+    applyVisibility(); relayout();
+  };
+
+  // ---- collapsed / show-all view toggle ----
+  document.getElementById("showAllToggle").onchange = e => {
+    collapsed = !e.target.checked;
+    focusId = null; expanded.clear(); clearHL();
+    applyVisibility(); relayout();
   };
 
   // ---- search ----
   const search = document.getElementById("search");
   search.oninput = () => {
     const q = search.value.trim().toLowerCase();
-    if (!q) { clearHL(); return; }
+    if (!q) return;
     const matches = cy.nodes().filter(n => n.data("name").toLowerCase().includes(q));
-    clearHL();
-    if (matches.length) {
-      cy.nodes().not(matches).addClass("dim");
-      if (matches.length === 1) { selectNode(matches[0]); focusNode(matches[0]); }
-    }
+    if (matches.length === 1) goToNode(matches[0]);  // jump only on an exact-ish hit
   };
   search.onkeydown = ev => {
     if (ev.key === "Enter") {
       const q = search.value.trim().toLowerCase();
       const m = cy.nodes().filter(n => n.data("name").toLowerCase().includes(q));
-      if (m.length) { selectNode(m[0]); focusNode(m[0]); }
+      if (m.length) goToNode(m[0]);
     }
   };
 
 
-  // Initial view: zoom in on the top-left of the tree. We size the zoom so the
-  // first ~3 tiers fill the viewport WIDTH and let the height overflow, so you
-  // start scrolled into the roots and zoomed in (not staring at the whole tree).
-  // Pan/scroll right to follow chains toward the harder leaf tricks.
-  const intro = cy.nodes().filter(n => n.data("depth") <= 2);
-  const bb = (intro.length ? intro : cy.nodes()).boundingBox();
-  const pad = 45;
-  const z = Math.min(2.0, Math.max(1.0, (cy.width() - pad * 2) / (bb.w || 1)));
-  cy.zoom(z);
-  // Keep the root column at the left edge, but anchor vertically on Cascade (the
-  // real starting trick) rather than whichever siteswap root dagre stacked on top.
-  const cascade = cy.getElementById("Cascade");
-  const anchorY = cascade.nonempty() ? cascade.position("y") : bb.y1;
-  cy.pan({ x: pad - bb.x1 * z,
-           y: (cascade.nonempty() ? cy.height() / 2 : pad) - anchorY * z });
+  // Initial view: collapsed to the starting tricks (roots), big and readable.
+  // Click a trick to reveal what it unlocks; toggle "show all nodes" for the
+  // full tree. This replaces the old whole-tree view that got tiny when zoomed out.
+  applyVisibility();
+  relayout();
 })();
 </script>
 </body>

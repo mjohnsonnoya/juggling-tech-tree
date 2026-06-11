@@ -1,28 +1,6 @@
 {
   "nodes": [
     {
-      "id": "423",
-      "path": "Tricks/3balltricks/423.html",
-      "name": "423",
-      "difficulty": 2,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/423.html",
-      "related": [],
-      "depth": 0
-    },
-    {
-      "id": "Half-Box(441)",
-      "path": "Tricks/3balltricks/Half-Box(441).html",
-      "name": "441 (Half-Box)",
-      "difficulty": 4,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Half-Box%28441%29.html",
-      "related": [
-        "Box"
-      ],
-      "depth": 0
-    },
-    {
       "id": "Cascade",
       "path": "Tricks/3balltricks/Cascade.html",
       "name": "Cascade",
@@ -30,30 +8,6 @@
       "balls": 3,
       "url": "https://libraryofjuggling.com/Tricks/3balltricks/Cascade.html",
       "related": [],
-      "depth": 0
-    },
-    {
-      "id": "Columns",
-      "path": "Tricks/3balltricks/Columns.html",
-      "name": "Columns",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Columns.html",
-      "related": [
-        "Four Ball Columns"
-      ],
-      "depth": 0
-    },
-    {
-      "id": "FakeColumns",
-      "path": "Tricks/3balltricks/FakeColumns.html",
-      "name": "Fake Columns",
-      "difficulty": 2,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/FakeColumns.html",
-      "related": [
-        "Yo-Yo"
-      ],
       "depth": 0
     },
     {
@@ -77,27 +31,26 @@
       "depth": 0
     },
     {
-      "id": "PendulumDrop",
-      "path": "Tricks/3balltricks/PendulumDrop.html",
-      "name": "Pendulum Drop",
-      "difficulty": 4,
+      "id": "423",
+      "path": "Tricks/3balltricks/423.html",
+      "name": "423",
+      "difficulty": 2,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/PendulumDrop.html",
-      "related": [
-        "Factory",
-        "Inverted Shower"
-      ],
-      "depth": 0
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/423.html",
+      "related": [],
+      "depth": 1
     },
     {
-      "id": "ThreeInOne",
-      "path": "Tricks/3balltricks/ThreeInOne.html",
-      "name": "Three In One",
-      "difficulty": 7,
+      "id": "Half-Box(441)",
+      "path": "Tricks/3balltricks/Half-Box(441).html",
+      "name": "441 (Half-Box)",
+      "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ThreeInOne.html",
-      "related": [],
-      "depth": 0
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Half-Box%28441%29.html",
+      "related": [
+        "Box"
+      ],
+      "depth": 1
     },
     {
       "id": "Backcrosses",
@@ -134,26 +87,14 @@
       "depth": 1
     },
     {
-      "id": "ColumnBoxVar",
-      "path": "Tricks/3balltricks/ColumnBoxVar.html",
-      "name": "Columns: Box Variation",
-      "difficulty": 5,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ColumnBoxVar.html",
-      "related": [
-        "Shower Variation"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "ColumnOverVar",
-      "path": "Tricks/3balltricks/ColumnOverVar.html",
-      "name": "Columns: Overthrow Variation",
+      "id": "Columns",
+      "path": "Tricks/3balltricks/Columns.html",
+      "name": "Columns",
       "difficulty": 3,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ColumnOverVar.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Columns.html",
       "related": [
-        "Infinity"
+        "Four Ball Columns"
       ],
       "depth": 1
     },
@@ -170,50 +111,14 @@
       "depth": 1
     },
     {
-      "id": "Crossunder",
-      "path": "Tricks/3balltricks/Crossunder.html",
-      "name": "Crossunder",
-      "difficulty": 4,
+      "id": "FakeColumns",
+      "path": "Tricks/3balltricks/FakeColumns.html",
+      "name": "Fake Columns",
+      "difficulty": 2,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Crossunder.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/FakeColumns.html",
       "related": [
-        "Reverse Crossunder"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "Factory",
-      "path": "Tricks/3balltricks/Factory.html",
-      "name": "Factory",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Factory.html",
-      "related": [
-        "Pendulum \n\tDrop"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "FakeMess",
-      "path": "Tricks/3balltricks/FakeMess.html",
-      "name": "Fake Mess",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/FakeMess.html",
-      "related": [
-        "Mills Mess"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "Follow",
-      "path": "Tricks/3balltricks/Follow.html",
-      "name": "Follow",
-      "difficulty": 4,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Follow.html",
-      "related": [
-        "Relf's Revenge"
+        "Yo-Yo"
       ],
       "depth": 1
     },
@@ -238,19 +143,6 @@
       "balls": 3,
       "url": "https://libraryofjuggling.com/Tricks/3balltricks/High-LowCascade.html",
       "related": [],
-      "depth": 1
-    },
-    {
-      "id": "Infinity",
-      "path": "Tricks/3balltricks/Infinity.html",
-      "name": "Infinity",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Infinity.html",
-      "related": [
-        "Overthrow \n\tVariation",
-        "Reverse Infinity"
-      ],
       "depth": 1
     },
     {
@@ -298,50 +190,15 @@
       "depth": 1
     },
     {
-      "id": "RainbowArches",
-      "path": "Tricks/3balltricks/RainbowArches.html",
-      "name": "Rainbow Cross",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/RainbowArches.html",
-      "related": [
-        "Overthrow Variation"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "Reverse441(Half-Box)",
-      "path": "Tricks/3balltricks/Reverse441(Half-Box).html",
-      "name": "Reverse 441",
+      "id": "PendulumDrop",
+      "path": "Tricks/3balltricks/PendulumDrop.html",
+      "name": "Pendulum Drop",
       "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Reverse441%28Half-Box%29.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/PendulumDrop.html",
       "related": [
-        "441 Mills Mess"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "ReverseCrossunder",
-      "path": "Tricks/3balltricks/ReverseCrossunder.html",
-      "name": "Reverse Crossunder",
-      "difficulty": 4,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseCrossunder.html",
-      "related": [
-        "Crossunder"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "ReverseInfinity",
-      "path": "Tricks/3balltricks/ReverseInfinity.html",
-      "name": "Reverse Infinity",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseInfinity.html",
-      "related": [
-        "Infinity"
+        "Factory",
+        "Inverted Shower"
       ],
       "depth": 1
     },
@@ -369,16 +226,6 @@
       "depth": 1
     },
     {
-      "id": "Shuffle-Switch",
-      "path": "Tricks/3balltricks/Shuffle-Switch.html",
-      "name": "Shuffle-Switch",
-      "difficulty": 3,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Shuffle-Switch.html",
-      "related": [],
-      "depth": 1
-    },
-    {
       "id": "Takeouts",
       "path": "Tricks/3balltricks/Takeouts.html",
       "name": "Takeouts",
@@ -391,48 +238,14 @@
       "depth": 1
     },
     {
-      "id": "TheW",
-      "path": "Tricks/3balltricks/TheW.html",
-      "name": "The W",
-      "difficulty": 2,
+      "id": "ThreeInOne",
+      "path": "Tricks/3balltricks/ThreeInOne.html",
+      "name": "Three In One",
+      "difficulty": 7,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/TheW.html",
-      "related": [
-        "Boston \n\t\tMess"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "Weave",
-      "path": "Tricks/3balltricks/Weave.html",
-      "name": "Weave",
-      "difficulty": 4,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Weave.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ThreeInOne.html",
       "related": [],
       "depth": 1
-    },
-    {
-      "id": "Yo-Yo",
-      "path": "Tricks/3balltricks/Yo-Yo.html",
-      "name": "Yo-Yo",
-      "difficulty": 2,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Yo-Yo.html",
-      "related": [
-        "Oy-Oy"
-      ],
-      "depth": 1
-    },
-    {
-      "id": "Al'sSlide",
-      "path": "Tricks/3balltricks/Al'sSlide.html",
-      "name": "Al's Slide",
-      "difficulty": 4,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Al%27sSlide.html",
-      "related": [],
-      "depth": 2
     },
     {
       "id": "BuffaloShuffle",
@@ -469,6 +282,30 @@
       "depth": 2
     },
     {
+      "id": "ColumnBoxVar",
+      "path": "Tricks/3balltricks/ColumnBoxVar.html",
+      "name": "Columns: Box Variation",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ColumnBoxVar.html",
+      "related": [
+        "Shower Variation"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "ColumnOverVar",
+      "path": "Tricks/3balltricks/ColumnOverVar.html",
+      "name": "Columns: Overthrow Variation",
+      "difficulty": 3,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ColumnOverVar.html",
+      "related": [
+        "Infinity"
+      ],
+      "depth": 2
+    },
+    {
       "id": "CompressedOlas",
       "path": "Tricks/3balltricks/CompressedOlas.html",
       "name": "Compressed Olas",
@@ -479,13 +316,15 @@
       "depth": 2
     },
     {
-      "id": "CrossedArmFactory",
-      "path": "Tricks/3balltricks/CrossedArmFactory.html",
-      "name": "Crossed-Arm Factory",
-      "difficulty": 5,
+      "id": "Crossunder",
+      "path": "Tricks/3balltricks/Crossunder.html",
+      "name": "Crossunder",
+      "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/CrossedArmFactory.html",
-      "related": [],
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Crossunder.html",
+      "related": [
+        "Reverse Crossunder"
+      ],
       "depth": 2
     },
     {
@@ -498,6 +337,42 @@
       "related": [
         "Singapore Shuffle",
         "Buffalo Shuffle"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "Factory",
+      "path": "Tricks/3balltricks/Factory.html",
+      "name": "Factory",
+      "difficulty": 3,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Factory.html",
+      "related": [
+        "Pendulum \n\tDrop"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "FakeMess",
+      "path": "Tricks/3balltricks/FakeMess.html",
+      "name": "Fake Mess",
+      "difficulty": 3,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/FakeMess.html",
+      "related": [
+        "Mills Mess"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "Follow",
+      "path": "Tricks/3balltricks/Follow.html",
+      "name": "Follow",
+      "difficulty": 4,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Follow.html",
+      "related": [
+        "Relf's Revenge"
       ],
       "depth": 2
     },
@@ -519,21 +394,6 @@
       "balls": 3,
       "url": "https://libraryofjuggling.com/Tricks/3balltricks/FranticCascade.html",
       "related": [],
-      "depth": 2
-    },
-    {
-      "id": "Frostbite",
-      "path": "Tricks/3balltricks/Frostbite.html",
-      "name": "Frostbite",
-      "difficulty": 6,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Frostbite.html",
-      "related": [
-        "Kraken",
-        "Kato's Crux",
-        "Shuffler's Mess",
-        "441 Mills Mess"
-      ],
       "depth": 2
     },
     {
@@ -571,13 +431,16 @@
       "depth": 2
     },
     {
-      "id": "InvertedShower",
-      "path": "Tricks/3balltricks/InvertedShower.html",
-      "name": "Inverted Shower",
-      "difficulty": 8,
+      "id": "Infinity",
+      "path": "Tricks/3balltricks/Infinity.html",
+      "name": "Infinity",
+      "difficulty": 3,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/InvertedShower.html",
-      "related": [],
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Infinity.html",
+      "related": [
+        "Overthrow \n\tVariation",
+        "Reverse Infinity"
+      ],
       "depth": 2
     },
     {
@@ -603,36 +466,6 @@
       "depth": 2
     },
     {
-      "id": "Matt'sMess",
-      "path": "Tricks/3balltricks/Matt'sMess.html",
-      "name": "Matt's Mess",
-      "difficulty": 5,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Matt%27sMess.html",
-      "related": [],
-      "depth": 2
-    },
-    {
-      "id": "OrinocoFlow",
-      "path": "Tricks/3balltricks/OrinocoFlow.html",
-      "name": "Orinoco Flow",
-      "difficulty": 5,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/OrinocoFlow.html",
-      "related": [],
-      "depth": 2
-    },
-    {
-      "id": "Oy-Oy",
-      "path": "Tricks/3balltricks/Oy-Oy.html",
-      "name": "Oy-Oy",
-      "difficulty": 2,
-      "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Oy-Oy.html",
-      "related": [],
-      "depth": 2
-    },
-    {
       "id": "Penman'sPandemonium",
       "path": "Tricks/3balltricks/Penman'sPandemonium.html",
       "name": "Penman's Pandemonium",
@@ -655,25 +488,26 @@
       "depth": 2
     },
     {
-      "id": "Relf'sFactory",
-      "path": "Tricks/3balltricks/Relf'sFactory.html",
-      "name": "Relf's Factory",
-      "difficulty": 5,
+      "id": "RainbowArches",
+      "path": "Tricks/3balltricks/RainbowArches.html",
+      "name": "Rainbow Cross",
+      "difficulty": 3,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Relf%27sFactory.html",
-      "related": [],
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/RainbowArches.html",
+      "related": [
+        "Overthrow Variation"
+      ],
       "depth": 2
     },
     {
-      "id": "Relf'sRevenge",
-      "path": "Tricks/3balltricks/Relf'sRevenge.html",
-      "name": "Relf's Revenge",
-      "difficulty": 5,
+      "id": "Reverse441(Half-Box)",
+      "path": "Tricks/3balltricks/Reverse441(Half-Box).html",
+      "name": "Reverse 441",
+      "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Relf%27sRevenge.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Reverse441%28Half-Box%29.html",
       "related": [
-        "Relf's Revenge 6",
-        "Relf's Rubensteins"
+        "441 Mills Mess"
       ],
       "depth": 2
     },
@@ -688,14 +522,26 @@
       "depth": 2
     },
     {
-      "id": "ReverseFactory",
-      "path": "Tricks/3balltricks/ReverseFactory.html",
-      "name": "Reverse Factory",
+      "id": "ReverseCrossunder",
+      "path": "Tricks/3balltricks/ReverseCrossunder.html",
+      "name": "Reverse Crossunder",
       "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseFactory.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseCrossunder.html",
       "related": [
-        "Inverted Shower"
+        "Crossunder"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "ReverseInfinity",
+      "path": "Tricks/3balltricks/ReverseInfinity.html",
+      "name": "Reverse Infinity",
+      "difficulty": 3,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseInfinity.html",
+      "related": [
+        "Infinity"
       ],
       "depth": 2
     },
@@ -706,6 +552,16 @@
       "difficulty": 4,
       "balls": 3,
       "url": "https://libraryofjuggling.com/Tricks/3balltricks/Rolf%27sWave.html",
+      "related": [],
+      "depth": 2
+    },
+    {
+      "id": "Shuffle-Switch",
+      "path": "Tricks/3balltricks/Shuffle-Switch.html",
+      "name": "Shuffle-Switch",
+      "difficulty": 3,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Shuffle-Switch.html",
       "related": [],
       "depth": 2
     },
@@ -734,6 +590,18 @@
       "depth": 2
     },
     {
+      "id": "TheW",
+      "path": "Tricks/3balltricks/TheW.html",
+      "name": "The W",
+      "difficulty": 2,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/TheW.html",
+      "related": [
+        "Boston \n\t\tMess"
+      ],
+      "depth": 2
+    },
+    {
       "id": "Tom'sTrick",
       "path": "Tricks/3balltricks/Tom'sTrick.html",
       "name": "Tom's Trick",
@@ -744,24 +612,61 @@
       "depth": 2
     },
     {
-      "id": "TruffleShuffle",
-      "path": "Tricks/3balltricks/TruffleShuffle.html",
-      "name": "Truffle Shuffle",
+      "id": "Weave",
+      "path": "Tricks/3balltricks/Weave.html",
+      "name": "Weave",
       "difficulty": 4,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/TruffleShuffle.html",
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Weave.html",
       "related": [],
       "depth": 2
     },
     {
-      "id": "ZebraFactory",
-      "path": "Tricks/3balltricks/ZebraFactory.html",
-      "name": "Zebra Factory",
+      "id": "Yo-Yo",
+      "path": "Tricks/3balltricks/Yo-Yo.html",
+      "name": "Yo-Yo",
+      "difficulty": 2,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Yo-Yo.html",
+      "related": [
+        "Oy-Oy"
+      ],
+      "depth": 2
+    },
+    {
+      "id": "Al'sSlide",
+      "path": "Tricks/3balltricks/Al'sSlide.html",
+      "name": "Al's Slide",
+      "difficulty": 4,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Al%27sSlide.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "CrossedArmFactory",
+      "path": "Tricks/3balltricks/CrossedArmFactory.html",
+      "name": "Crossed-Arm Factory",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/CrossedArmFactory.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "Frostbite",
+      "path": "Tricks/3balltricks/Frostbite.html",
+      "name": "Frostbite",
       "difficulty": 6,
       "balls": 3,
-      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ZebraFactory.html",
-      "related": [],
-      "depth": 2
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Frostbite.html",
+      "related": [
+        "Kraken",
+        "Kato's Crux",
+        "Shuffler's Mess",
+        "441 Mills Mess"
+      ],
+      "depth": 3
     },
     {
       "id": "Harrison'sHang",
@@ -774,6 +679,69 @@
       "depth": 3
     },
     {
+      "id": "InvertedShower",
+      "path": "Tricks/3balltricks/InvertedShower.html",
+      "name": "Inverted Shower",
+      "difficulty": 8,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/InvertedShower.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "Matt'sMess",
+      "path": "Tricks/3balltricks/Matt'sMess.html",
+      "name": "Matt's Mess",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Matt%27sMess.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "OrinocoFlow",
+      "path": "Tricks/3balltricks/OrinocoFlow.html",
+      "name": "Orinoco Flow",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/OrinocoFlow.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "Oy-Oy",
+      "path": "Tricks/3balltricks/Oy-Oy.html",
+      "name": "Oy-Oy",
+      "difficulty": 2,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Oy-Oy.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "Relf'sFactory",
+      "path": "Tricks/3balltricks/Relf'sFactory.html",
+      "name": "Relf's Factory",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Relf%27sFactory.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "Relf'sRevenge",
+      "path": "Tricks/3balltricks/Relf'sRevenge.html",
+      "name": "Relf's Revenge",
+      "difficulty": 5,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/Relf%27sRevenge.html",
+      "related": [
+        "Relf's Revenge 6",
+        "Relf's Rubensteins"
+      ],
+      "depth": 3
+    },
+    {
       "id": "ReverseCascade",
       "path": "Tricks/3balltricks/ReverseCascade.html",
       "name": "Reverse Cascade",
@@ -782,6 +750,18 @@
       "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseCascade.html",
       "related": [
         "Cascade"
+      ],
+      "depth": 3
+    },
+    {
+      "id": "ReverseFactory",
+      "path": "Tricks/3balltricks/ReverseFactory.html",
+      "name": "Reverse Factory",
+      "difficulty": 4,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ReverseFactory.html",
+      "related": [
+        "Inverted Shower"
       ],
       "depth": 3
     },
@@ -817,6 +797,26 @@
       "related": [
         "Symmetric Georgian Shuffle"
       ],
+      "depth": 3
+    },
+    {
+      "id": "TruffleShuffle",
+      "path": "Tricks/3balltricks/TruffleShuffle.html",
+      "name": "Truffle Shuffle",
+      "difficulty": 4,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/TruffleShuffle.html",
+      "related": [],
+      "depth": 3
+    },
+    {
+      "id": "ZebraFactory",
+      "path": "Tricks/3balltricks/ZebraFactory.html",
+      "name": "Zebra Factory",
+      "difficulty": 6,
+      "balls": 3,
+      "url": "https://libraryofjuggling.com/Tricks/3balltricks/ZebraFactory.html",
+      "related": [],
       "depth": 3
     },
     {
@@ -1529,18 +1529,6 @@
       "depth": 0
     },
     {
-      "id": "Fountain",
-      "path": "Tricks/4balltricks/Fountain.html",
-      "name": "Fountain",
-      "difficulty": 7,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Fountain.html",
-      "related": [
-        "Reverse Fountain"
-      ],
-      "depth": 1
-    },
-    {
       "id": "TennesseeWaltz",
       "path": "Tricks/4balltricks/TennesseeWaltz.html",
       "name": "Tennessee Waltz",
@@ -1563,6 +1551,18 @@
       "depth": 1
     },
     {
+      "id": "Fountain",
+      "path": "Tricks/4balltricks/Fountain.html",
+      "name": "Fountain",
+      "difficulty": 7,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Fountain.html",
+      "related": [
+        "Reverse Fountain"
+      ],
+      "depth": 2
+    },
+    {
       "id": "FourBallTakeouts",
       "path": "Tricks/4balltricks/FourBallTakeouts.html",
       "name": "Four Ball Takeouts",
@@ -1571,52 +1571,6 @@
       "url": "https://libraryofjuggling.com/Tricks/4balltricks/FourBallTakeouts.html",
       "related": [],
       "depth": 2
-    },
-    {
-      "id": "Pistons",
-      "path": "Tricks/4balltricks/Pistons.html",
-      "name": "Pistons",
-      "difficulty": 7,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Pistons.html",
-      "related": [
-        "Synchronous Pistons"
-      ],
-      "depth": 2
-    },
-    {
-      "id": "ReverseFountain",
-      "path": "Tricks/4balltricks/ReverseFountain.html",
-      "name": "Reverse Fountain",
-      "difficulty": 7,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/ReverseFountain.html",
-      "related": [],
-      "depth": 2
-    },
-    {
-      "id": "SynchFountain",
-      "path": "Tricks/4balltricks/SynchFountain.html",
-      "name": "Synchronous Fountain",
-      "difficulty": 7,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/SynchFountain.html",
-      "related": [
-        "Reverse \n\tSynchronous Fountain"
-      ],
-      "depth": 2
-    },
-    {
-      "id": "FourBallColumns",
-      "path": "Tricks/4balltricks/FourBallColumns.html",
-      "name": "Four Ball Columns",
-      "difficulty": 5,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/FourBallColumns.html",
-      "related": [
-        "Four Ball Rainbow Cross"
-      ],
-      "depth": 3
     },
     {
       "id": "FourBallHalfShower",
@@ -1631,13 +1585,37 @@
       "depth": 3
     },
     {
-      "id": "ReverseSynchFountain",
-      "path": "Tricks/4balltricks/ReverseSynchFountain.html",
-      "name": "Reverse Synchronous Fountain",
+      "id": "Pistons",
+      "path": "Tricks/4balltricks/Pistons.html",
+      "name": "Pistons",
       "difficulty": 7,
       "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/ReverseSynchFountain.html",
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Pistons.html",
+      "related": [
+        "Synchronous Pistons"
+      ],
+      "depth": 3
+    },
+    {
+      "id": "ReverseFountain",
+      "path": "Tricks/4balltricks/ReverseFountain.html",
+      "name": "Reverse Fountain",
+      "difficulty": 7,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/ReverseFountain.html",
       "related": [],
+      "depth": 3
+    },
+    {
+      "id": "SynchFountain",
+      "path": "Tricks/4balltricks/SynchFountain.html",
+      "name": "Synchronous Fountain",
+      "difficulty": 7,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/SynchFountain.html",
+      "related": [
+        "Reverse \n\tSynchronous Fountain"
+      ],
       "depth": 3
     },
     {
@@ -1663,13 +1641,15 @@
       "depth": 4
     },
     {
-      "id": "FourBallRainbowCross",
-      "path": "Tricks/4balltricks/FourBallRainbowCross.html",
-      "name": "Four Ball Rainbow Cross",
-      "difficulty": 6,
+      "id": "FourBallColumns",
+      "path": "Tricks/4balltricks/FourBallColumns.html",
+      "name": "Four Ball Columns",
+      "difficulty": 5,
       "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/FourBallRainbowCross.html",
-      "related": [],
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/FourBallColumns.html",
+      "related": [
+        "Four Ball Rainbow Cross"
+      ],
       "depth": 4
     },
     {
@@ -1685,25 +1665,13 @@
       "depth": 4
     },
     {
-      "id": "Lisa",
-      "path": "Tricks/4balltricks/Lisa.html",
-      "name": "Lisa",
-      "difficulty": 5,
+      "id": "ReverseSynchFountain",
+      "path": "Tricks/4balltricks/ReverseSynchFountain.html",
+      "name": "Reverse Synchronous Fountain",
+      "difficulty": 7,
       "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Lisa.html",
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/ReverseSynchFountain.html",
       "related": [],
-      "depth": 4
-    },
-    {
-      "id": "SynchPistons",
-      "path": "Tricks/4balltricks/SynchPistons.html",
-      "name": "Synchronous Pistons",
-      "difficulty": 6,
-      "balls": 4,
-      "url": "https://libraryofjuggling.com/Tricks/4balltricks/SynchPistons.html",
-      "related": [
-        "Pistons"
-      ],
       "depth": 4
     },
     {
@@ -1759,6 +1727,16 @@
       "depth": 5
     },
     {
+      "id": "FourBallRainbowCross",
+      "path": "Tricks/4balltricks/FourBallRainbowCross.html",
+      "name": "Four Ball Rainbow Cross",
+      "difficulty": 6,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/FourBallRainbowCross.html",
+      "related": [],
+      "depth": 5
+    },
+    {
       "id": "FourBallStackedBox",
       "path": "Tricks/4balltricks/FourBallStackedBox.html",
       "name": "Four Ball Stacked Box",
@@ -1781,6 +1759,16 @@
       "depth": 5
     },
     {
+      "id": "Lisa",
+      "path": "Tricks/4balltricks/Lisa.html",
+      "name": "Lisa",
+      "difficulty": 5,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/Lisa.html",
+      "related": [],
+      "depth": 5
+    },
+    {
       "id": "SprungCascade",
       "path": "Tricks/4balltricks/SprungCascade.html",
       "name": "Sprung Cascade",
@@ -1788,6 +1776,18 @@
       "balls": 4,
       "url": "https://libraryofjuggling.com/Tricks/4balltricks/SprungCascade.html",
       "related": [],
+      "depth": 5
+    },
+    {
+      "id": "SynchPistons",
+      "path": "Tricks/4balltricks/SynchPistons.html",
+      "name": "Synchronous Pistons",
+      "difficulty": 6,
+      "balls": 4,
+      "url": "https://libraryofjuggling.com/Tricks/4balltricks/SynchPistons.html",
+      "related": [
+        "Pistons"
+      ],
       "depth": 5
     },
     {
@@ -1821,16 +1821,6 @@
       "depth": 6
     },
     {
-      "id": "FiveBallMultiplexColumns",
-      "path": "Tricks/5balltricks/FiveBallMultiplexColumns.html",
-      "name": "Five Ball Multiplex Columns",
-      "difficulty": 7,
-      "balls": 5,
-      "url": "https://libraryofjuggling.com/Tricks/5balltricks/FiveBallMultiplexColumns.html",
-      "related": [],
-      "depth": 1
-    },
-    {
       "id": "FiveBallSplitMultiplexCascade",
       "path": "Tricks/5balltricks/FiveBallSplitMultiplexCascade.html",
       "name": "Five Ball Split Multiplex Cascade",
@@ -1853,6 +1843,16 @@
       "depth": 1
     },
     {
+      "id": "FiveBallMultiplexColumns",
+      "path": "Tricks/5balltricks/FiveBallMultiplexColumns.html",
+      "name": "Five Ball Multiplex Columns",
+      "difficulty": 7,
+      "balls": 5,
+      "url": "https://libraryofjuggling.com/Tricks/5balltricks/FiveBallMultiplexColumns.html",
+      "related": [],
+      "depth": 2
+    },
+    {
       "id": "Martin",
       "path": "Tricks/5balltricks/Martin.html",
       "name": "Martin",
@@ -1860,7 +1860,7 @@
       "balls": 5,
       "url": "https://libraryofjuggling.com/Tricks/5balltricks/Martin.html",
       "related": [],
-      "depth": 2
+      "depth": 3
     },
     {
       "id": "FiveBallShower",
@@ -1912,7 +1912,18 @@
       "balls": 6,
       "url": "https://libraryofjuggling.com/Tricks/6balltricks/SixBallFountain.html",
       "related": [],
-      "depth": 2
+      "depth": 3
+    },
+    {
+      "id": "fund:twoinone",
+      "path": null,
+      "name": "Two in One",
+      "difficulty": null,
+      "balls": null,
+      "url": null,
+      "related": [],
+      "fundamental": true,
+      "depth": 0
     }
   ],
   "edges": [
@@ -2127,6 +2138,11 @@
       "optional": false
     },
     {
+      "source": "fund:twoinone",
+      "target": "Takeouts",
+      "optional": false
+    },
+    {
       "source": "Half-Shower",
       "target": "ReverseCascade",
       "optional": false
@@ -2154,6 +2170,11 @@
     {
       "source": "Takeouts",
       "target": "ReverseChops",
+      "optional": false
+    },
+    {
+      "source": "fund:twoinone",
+      "target": "Columns",
       "optional": false
     },
     {
@@ -2270,6 +2291,11 @@
       "source": "N-Box",
       "target": "ZebraFactory",
       "optional": true
+    },
+    {
+      "source": "fund:twoinone",
+      "target": "FakeColumns",
+      "optional": false
     },
     {
       "source": "FakeColumns",
@@ -2597,6 +2623,11 @@
       "optional": false
     },
     {
+      "source": "fund:twoinone",
+      "target": "PendulumDrop",
+      "optional": false
+    },
+    {
       "source": "Orka'sMess",
       "target": "Penman'sPandemonium",
       "optional": false
@@ -2777,6 +2808,11 @@
       "optional": false
     },
     {
+      "source": "fund:twoinone",
+      "target": "ThreeInOne",
+      "optional": false
+    },
+    {
       "source": "Chops",
       "target": "Tom'sTrick",
       "optional": false
@@ -2832,8 +2868,18 @@
       "optional": false
     },
     {
+      "source": "fund:twoinone",
+      "target": "423",
+      "optional": false
+    },
+    {
       "source": "423",
       "target": "TheW",
+      "optional": false
+    },
+    {
+      "source": "fund:twoinone",
+      "target": "Half-Box(441)",
       "optional": false
     },
     {
@@ -2903,6 +2949,11 @@
     },
     {
       "source": "Half-Box(441)",
+      "target": "Fountain",
+      "optional": false
+    },
+    {
+      "source": "fund:twoinone",
       "target": "Fountain",
       "optional": false
     },
